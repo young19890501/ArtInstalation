@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class Drawing : MonoBehaviour 
+public class Drawing : NetworkBehaviour
 {
 	private bool done = true;
 	private bool drawingDone;
@@ -9,10 +10,15 @@ public class Drawing : MonoBehaviour
 	private int i;
 
 
+
 	// Use this for initialization
 	void Start () 
 	{
-	
+        index = Draw.drawingIndex;
+        Draw.curDrawingParent = gameObject;
+        Draw.drawing.Add(gameObject);
+        Draw.drawingIndex ++;
+        gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -25,9 +31,11 @@ public class Drawing : MonoBehaviour
 
 		if(drawingDone)
 		{
+            
 			if(Draw.drawing.Count > 1 )
 			{
 				i = (index + 1) % Draw.drawing.Count;
+               
 				Draw.drawing[i].SetActive(true);
 			}
 			gameObject.SetActive(false);

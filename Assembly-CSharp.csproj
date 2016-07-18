@@ -6,15 +6,14 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{97B6A0B6-3734-28B4-4B32-9F695C5B9F14}</ProjectGuid>
+    <ProjectGuid>{8B97F3C4-8A2A-3728-A3C3-80FAFA66FAC6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -24,8 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -33,8 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.XML" />
@@ -48,42 +45,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Draw.cs" />
-     <Compile Include="Assets\Drawing.cs" />
-     <Compile Include="Assets\GameManager.cs" />
-     <Compile Include="Assets\Lines.cs" />
-     <Compile Include="Assets\Movement.cs" />
-     <Compile Include="Assets\PlayerNetWork.cs" />
-     <Compile Include="Assets\SaveTexture.cs" />
-     <Compile Include="Assets\SinMove.cs" />
-     <Compile Include="Assets\SpaceMove.cs" />
-     <Compile Include="Assets\Trail.cs" />
-     <Compile Include="Assets\XWeaponTrail\Scripts\Spline.cs" />
-     <Compile Include="Assets\XWeaponTrail\Scripts\SplineControlPoint.cs" />
-     <Compile Include="Assets\XWeaponTrail\Scripts\VertexPool.cs" />
-     <Compile Include="Assets\XWeaponTrail\Scripts\XWeaponTrail.cs" />
-     <Compile Include="Assets\XWeaponTrail\Scripts\XWeaponTrailDemo.cs" />
-     <None Include="Assets\Plugins\Photon3Unity3D.xml" />
-     <None Include="Assets\Plugins\release_history.txt" />
-     <None Include="Assets\XWeaponTrail\readme.txt" />
-     <None Include="Assets\XWeaponTrail\Model\readme.txt" />
-     <None Include="Assets\XWeaponTrail\Shader\xft_displacement_screen.shader" />
+     <Compile Include="Assets\ArtInstallationPlayer.cs" />
+     <Compile Include="Assets\Script\Draw.cs" />
+     <Compile Include="Assets\Script\Drawing.cs" />
+     <Compile Include="Assets\Script\GameManager.cs" />
+     <Compile Include="Assets\Script\Lines.cs" />
+     <Compile Include="Assets\Script\Movement.cs" />
+     <Compile Include="Assets\Script\PlayerNetWork.cs" />
+     <Compile Include="Assets\Script\SaveTexture.cs" />
+     <Compile Include="Assets\Script\SinMove.cs" />
+     <Compile Include="Assets\Script\SpaceMove.cs" />
+     <Compile Include="Assets\Script\Trail.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
- <Reference Include="Photon3Unity3D">
- <HintPath>/Users/yang_liu/Documents/Yang/Programing/ArtInstallation/Assets/Plugins/Photon3Unity3D.dll</HintPath>
- </Reference>
- <Reference Include="websocket-sharp">
- <HintPath>/Users/yang_liu/Documents/Yang/Programing/ArtInstallation/Assets/Plugins/WebSocket/websocket-sharp.dll</HintPath>
- </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{B5DFAC48-991E-1E9E-CAC4-54B96936CDF1}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -93,4 +71,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
