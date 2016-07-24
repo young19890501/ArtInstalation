@@ -4,20 +4,17 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour 
+
+public class GameManager : NetworkManager 
 {
-    
-  
-    
+    //private NetworkManager netManager;
+    private NetworkManagerHUD hud;
 
-    void Start()
+    public override void OnClientConnect(NetworkConnection conn)
     {
-      
-    }
+        Debug.Log ("OnPlayerConnected");
+        hud = GetComponent<NetworkManagerHUD>();
+        hud.enabled = false;
 
-    void Update()
-    {
-      
     }
-
 }

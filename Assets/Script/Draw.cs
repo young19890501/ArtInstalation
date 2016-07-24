@@ -10,6 +10,7 @@ public class Draw : NetworkBehaviour
 	
      private EventSystem es;
     [SerializeField] private GameObject linePrefab,trailPrefab,drawingPrefab,cubeFab;
+    [SerializeField] private List<GameObject> trailPos = new List<GameObject>();
 
 
     private int i;
@@ -23,6 +24,7 @@ public class Draw : NetworkBehaviour
     public static bool isDrawing;
     public static GameObject curDrawingParent;
     public static int drawingIndex;
+    private bool loop = false;
 
 
 
@@ -68,6 +70,13 @@ public class Draw : NetworkBehaviour
 			makeTrail = false;
 			trailCounter = 0;
 		}
+
+
+        if(drawing.Count >3 && !loop)
+        {
+            drawing[0].SetActive(true);
+            drawing[UnityEngine.Random.Range(1,drawing.Count-1)].SetActive(true);
+        }
 		
 
 	}
@@ -87,20 +96,16 @@ public class Draw : NetworkBehaviour
 	public void SendButton()
 	{
 
-        if(!isServer)
+        if(!isServer ||lines.Count == 0)
             return;
+        
 		makeTrail = true;
 		trailCounter = 0;
 		foreach (GameObject obj in lines)
 		{
 			obj.transform.GetChild(0).gameObject.SetActive (false);
 		}
-		if(drawing.Count>1)
-		//button2.SetActive(true);
-
-
-		if(lines.Count == 0)
-		return;
+            
         GameObject p = (GameObject)Instantiate(drawingPrefab);
         p.name = "Drawing_" + (drawingIndex+1).ToString();
         CmdSpawnDraw(p);
@@ -136,17 +141,16 @@ public class Draw : NetworkBehaviour
 
 
 
-	public void LoopButton()
-	{
-		drawing[0].SetActive(true);
-	}
-
 
 	public GameObject GetCurParent()
 	{
 		return curDrawingParent;
 	}
 
+    public Vector3 GetRandomOffest()
+    {
+        return trailPos[UnityEngine.Random.Range(0,trailPos.Count -1)].transform.position;
+    }
 
 	
 

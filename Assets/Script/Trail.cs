@@ -13,6 +13,10 @@ public class Trail :  NetworkBehaviour
     public bool done;
 	private TrailRenderer tr;
 	private float  t;
+
+    public Vector3 offset;
+    private Drawing drawingParent;
+
 		// Use this for initialization
 	void Start () 
     {
@@ -25,18 +29,21 @@ public class Trail :  NetworkBehaviour
 		GetComponent<TrailRenderer>().time = Mathf.Max(0f,Draw.fadeTime[k]);
 		Draw.trailCounter ++;
 		gameObject.layer = 9;
-
-
-
+     
         transform.SetParent(GameObject.FindGameObjectWithTag("Drawer").GetComponent<Draw>().GetCurParent().transform);
 		tr = this.GetComponent<TrailRenderer>();
 		
 	}
 	void OnEnable()
 	{
+        drawingParent = GetComponentInParent<Drawing>();
 		i = 0;
 		t = 0;
 		done = false;
+        if(drawingParent != null)
+        offset = drawingParent.GetOffest();
+       
+
 	}
 	
 	// Update is called once per frame
@@ -45,9 +52,10 @@ public class Trail :  NetworkBehaviour
         if(!isServer)
             return;
 
+
 		while(i < pos.Count)
 		{
-			transform.position = pos[i];
+            transform.position = pos[i] * 0.4f + offset;
 			StartCoroutine(Wait());
 			if(!complete)
 			return;
@@ -58,9 +66,7 @@ public class Trail :  NetworkBehaviour
 		t +=  Time.deltaTime;
 		if(t>= (tr.time - 0.5f) * 2f)
 		done = true;
-
-			
-		
+            	
 
 	}
 

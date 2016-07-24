@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ArtInstallationPlayer : NetworkBehaviour 
 {
 
-    [SerializeField] private Button sendBtn,loopBtn;
+    [SerializeField] private Button sendBtn;
     private GameObject drawer;
 
 	// Use this for initialization
@@ -21,18 +21,14 @@ public class ArtInstallationPlayer : NetworkBehaviour
         {
             drawer.GetComponent<Draw>().SendButton();
         });
-
-        loopBtn.onClick.AddListener(() =>
+            
+        if(!isServer)
         {
-            drawer.GetComponent<Draw>().LoopButton();
-        });
+            GetComponent<Canvas>().enabled = false; 
+        }
 
 	
 	}
 	
-	// Update is called once per frame
-	void Update () 
-    {
-	
-	}
+
 }
