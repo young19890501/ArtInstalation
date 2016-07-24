@@ -4,26 +4,17 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour 
+
+public class GameManager : NetworkManager 
 {
-    
-  
-    
+    //private NetworkManager netManager;
+    private NetworkManagerHUD hud;
 
-    void Start()
+    public override void OnClientConnect(NetworkConnection conn)
     {
-       Debug.Log("displays connected: " + Display.displays.Length);
-        // Display.displays[0] is the primary, default display and is always ON.
-        // Check if additional displays are available and activate each.
-        Debug.Log(Display.displays[0]);
+        Debug.Log ("OnPlayerConnected");
+        hud = GetComponent<NetworkManagerHUD>();
+        hud.enabled = false;
 
-        if (Display.displays.Length > 1)
-            Display.displays[1].Activate();
     }
-
-    void Update()
-    {
-      
-    }
-
 }

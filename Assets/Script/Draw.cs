@@ -8,22 +8,24 @@ public class Draw : NetworkBehaviour
 {
 
 	
-	private EventSystem es;
-	[SerializeField] private GameObject linePrefab,trailPrefab,drawingPrefab;
+     private EventSystem es;
+    [SerializeField] private GameObject linePrefab,trailPrefab,drawingPrefab,cubeFab;
+    [SerializeField] private List<GameObject> trailPos = new List<GameObject>();
 
 
-	private int i;
+    private int i;
 	public static Dictionary<int, Lines> linesInfo;
-	public static List<float> fadeTime = new List<float>();
-	public static List<GameObject> lines = new List<GameObject>();
-	public static List<GameObject> drawing = new List<GameObject>();
+    public static List<float> fadeTime = new List<float>();
+    public static List<GameObject> lines = new List<GameObject>();
+    public static List<GameObject> drawing = new List<GameObject>();
 	
     public static int trailCounter;
     public static bool makeTrail;
-	public static bool isDrawing;
-	public GameObject curDrawingParent;
-	[SyncVarAttribute] private int drawingIndex;
-	[SerializeField] private GameObject button2;
+    public static bool isDrawing;
+    public static GameObject curDrawingParent;
+    public static int drawingIndex;
+    private bool loop = false;
+
 
 
     // Use this for initialization
@@ -36,8 +38,12 @@ public class Draw : NetworkBehaviour
         fadeTime.Clear();
 	}
 	
-	void FixedUpdate()
+	void Update()
 	{
+        if(!isServer)
+            return;
+
+
 		if(Input.GetMouseButtonDown(0)&&!isDrawing)
 		{
 			Instantiate(linePrefab);
@@ -48,7 +54,9 @@ public class Draw : NetworkBehaviour
 		{
 			if(!makeTrail)
 			return;
-			Instantiate(trailPrefab);
+            GameObject trail = (GameObject)Instantiate(trailPrefab);
+            trail.GetComponent<Trail>().pos = Draw.linesInfo[Draw.trailCounter].GetPosInfo();
+            CmdSpawnTrail(trail);
 		}
 		else if(makeTrail)
 		{
@@ -62,43 +70,76 @@ public class Draw : NetworkBehaviour
 			makeTrail = false;
 			trailCounter = 0;
 		}
+
+
+        if(drawing.Count >3 && !loop)
+        {
+            drawing[0].SetActive(true);
+            drawing[UnityEngine.Random.Range(1,drawing.Count-1)].SetActive(true);
+        }
 		
 
 	}
+
+    [Command]
+    public void CmdSpawnTrail(GameObject obj)
+    {
+        NetworkServer.Spawn(obj);
+    }
+
+
+
+
+
+
+
 	public void SendButton()
 	{
 
+        if(!isServer ||lines.Count == 0)
+            return;
+        
 		makeTrail = true;
 		trailCounter = 0;
 		foreach (GameObject obj in lines)
 		{
 			obj.transform.GetChild(0).gameObject.SetActive (false);
 		}
-		if(drawing.Count>1)
-		button2.SetActive(true);
-
-
-		if(lines.Count == 0)
-		return;
-		GameObject p = Instantiate(drawingPrefab);
-		p.name = "Drawing_" + (drawingIndex+1).ToString();
-		drawing.Add(p);
-		p.GetComponent<Drawing>().index = drawingIndex;		
-		curDrawingParent = p;
-		drawingIndex ++;
-		curDrawingParent.SetActive(false);
+            
+        GameObject p = (GameObject)Instantiate(drawingPrefab);
+        p.name = "Drawing_" + (drawingIndex+1).ToString();
+        CmdSpawnDraw(p);
 	
 		
-		
-		
+	
 	}
 
 
+    [Command]
+    public void CmdCubetest()
+    {
+        GameObject cube = (GameObject)Instantiate(cubeFab);
 
-	public void LoopButton()
-	{
-		drawing[0].SetActive(true);
-	}
+        NetworkServer.Spawn(cube);
+        RpcCube(cube);
+      
+    }
+    [ClientRpc]
+    public void RpcCube(GameObject obj)
+    {
+        obj.AddComponent<Rigidbody>();
+    }
+
+    [Command]
+    public void CmdSpawnDraw(GameObject p)
+    {
+        
+        NetworkServer.Spawn(p);
+        p.name = "Drawing_" + (drawingIndex+1).ToString();
+
+    }
+
+
 
 
 	public GameObject GetCurParent()
@@ -106,6 +147,10 @@ public class Draw : NetworkBehaviour
 		return curDrawingParent;
 	}
 
+    public Vector3 GetRandomOffest()
+    {
+        return trailPos[UnityEngine.Random.Range(0,trailPos.Count -1)].transform.position;
+    }
 
 	
 
