@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ArtInstallationPlayer.cs" />
+     <Compile Include="Assets\Rotation.cs" />
      <Compile Include="Assets\Script\Draw.cs" />
      <Compile Include="Assets\Script\Drawing.cs" />
      <Compile Include="Assets\Script\GameManager.cs" />
