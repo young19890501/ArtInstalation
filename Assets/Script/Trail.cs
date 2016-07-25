@@ -55,7 +55,7 @@ public class Trail :  NetworkBehaviour
 
 		while(i < pos.Count)
 		{
-            transform.position = pos[i] * 0.4f + offset;
+            transform.position = pos[i] * 0.5f + offset;
 			StartCoroutine(Wait());
 			if(!complete)
 			return;

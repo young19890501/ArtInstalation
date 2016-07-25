@@ -13,8 +13,6 @@ public class Drawing : NetworkBehaviour
 
     void Awake()
     {
-        if(!isServer)
-            return;
        drawer = GameObject.FindGameObjectWithTag("Drawer").GetComponent<Draw>();
 
     }
@@ -32,7 +30,12 @@ public class Drawing : NetworkBehaviour
     void OnDisable()
     {
         if(drawer != null)
-        drawingOffest = drawer.GetRandomOffest();
+        {
+            drawingOffest = drawer.GetRandomOffest();
+        }
+
+       
+       
 
     }
 	

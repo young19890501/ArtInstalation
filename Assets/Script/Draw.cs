@@ -76,6 +76,7 @@ public class Draw : NetworkBehaviour
         {
             drawing[0].SetActive(true);
             drawing[UnityEngine.Random.Range(1,drawing.Count-1)].SetActive(true);
+            loop = true;
         }
 		
 
