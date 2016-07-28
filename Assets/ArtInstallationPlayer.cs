@@ -17,9 +17,10 @@ public class ArtInstallationPlayer : NetworkBehaviour
             gameObject.SetActive(false);
         }
         drawer = GameObject.FindGameObjectWithTag("Drawer");
+
         sendBtn.onClick.AddListener(() =>
         {
-            drawer.GetComponent<Draw>().SendButton();
+            drawer.GetComponent<Draw>().SendButton(sendBtn);
         });
             
         if(!isServer)

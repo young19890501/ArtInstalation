@@ -36,3 +36,5 @@
 /Users/yang_liu/Documents/SourceControl/ArtInstalation/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/yang_liu/Documents/SourceControl/ArtInstalation/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/yang_liu/Documents/SourceControl/ArtInstalation/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/yang_liu/Documents/SourceControl/ArtInstalation/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/yang_liu/Documents/SourceControl/ArtInstalation/Temp/bin/Debug/Assembly-CSharp.dll

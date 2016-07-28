@@ -14,6 +14,7 @@ public class Lines : MonoBehaviour
 	private EventSystem es;
 	private LineRenderer lr;
 	private bool done;
+    private Touch finger;
 
 
 
@@ -37,12 +38,17 @@ public class Lines : MonoBehaviour
 		if(done)
 		return;
 
-		if(Input.GetMouseButton(0))
-		{
-			if(isStopped)
-			return;	
-			Drawing();
-		}
+        foreach(Touch touch in Input.touches)
+        {
+            
+            if(touch.phase == TouchPhase.Moved)
+    		{
+    			if(isStopped)
+    			return;	
+                Drawing();
+    		}
+
+        }
 
 //X trail
 		if(!Input.GetMouseButton(0))
@@ -66,18 +72,22 @@ public class Lines : MonoBehaviour
 		}
 
 	}
-	void Drawing()
+    void Drawing()
 	{
 		if(es.IsPointerOverGameObject())
 		return;
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+
+        finger = Input.GetTouch(0);
+        //Debug.Log(finger.position);
+        Ray ray = Camera.main.ScreenPointToRay(finger.position);
 		RaycastHit hit;
 		Vector3 pos;
 		
 		if(Physics.Raycast(ray,out hit,Mathf.Infinity,1<<8))
 		{
 			pos = hit.point + new Vector3(0f,0f,-2f);
-
+           
 			if(linePos.Count != 0)
 			{
 				if((linePos[count-1]- (hit.point + new Vector3(0f,0f,-2f))).magnitude <=0.04f)
